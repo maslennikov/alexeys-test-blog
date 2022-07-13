@@ -4,7 +4,8 @@
   "version": "1.0.0",
   "description": "",
   "scripts": {
-    "preinstall": "npx only-allow pnpm"
+    "preinstall": "npx only-allow pnpm",
+    "seed-db": "docker compose exec -u postgres postgres sh -c 'cd /dump && sh seed.sh'"
   },
   "keywords": [],
   "author": "",

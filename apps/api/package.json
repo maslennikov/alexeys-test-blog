@@ -1,5 +1,5 @@
 {
-  "name": "api",
+  "name": "@welbex-test-blog/api",
   "version": "1.0.0",
   "description": "",
   "main": "dist/index.js",

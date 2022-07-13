@@ -1,0 +1,36 @@
+{
+  "name": "api",
+  "version": "1.0.0",
+  "description": "",
+  "main": "dist/index.js",
+  "nodemonConfig": {
+    "watch": [
+      "dist"
+    ],
+    "delay": "2500"
+  },
+  "scripts": {
+    "build": "esbuild src/index.ts --bundle --external:./node_modules/* --outfile=dist/index.js --platform=node --target=node18 --format=cjs",
+    "start": "node dist/index.js",
+    "dev": "pnpm build && concurrently -k -p '[{name}]' -n 'TypeScript,App' -c 'yellow.bold,cyan.bold' 'pnpm:watch-build' 'pnpm:watch-start'",
+    "watch-build": "pnpm build --watch",
+    "watch-start": "nodemon dist/index.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@fastify/auth": "^3.0.2",
+    "@fastify/jwt": "^6.3.0",
+    "@fastify/sensible": "^5.1.0",
+    "fastify": "^4.2.1",
+    "fastify-plugin": "^4.0.0",
+    "fluent-json-schema": "^3.1.0"
+  },
+  "devDependencies": {
+    "@types/node": "^18.0.3",
+    "concurrently": "^7.2.2",
+    "esbuild": "^0.14.49",
+    "nodemon": "^2.0.19"
+  }
+}

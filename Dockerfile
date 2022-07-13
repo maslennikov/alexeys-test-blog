@@ -38,13 +38,9 @@ RUN pnpm --filter "${SCOPE}" --if-present test
 RUN pnpm --filter "${SCOPE}" build
 
 FROM dev AS isolated
-# `turbo prune` does not work with pnpm; using experimental `deploy`
-# pnpm command to isolate selected project with prod deps.
-#
-# it somehow omits `dist` folder from the built project, thus copying
-# dist manually
-RUN pnpm --filter "${SCOPE}" deploy dist/isolated \
-  && cp -r "$(pnpm --filter "${SCOPE}" list --depth=-1 --parseable)/dist" dist/isolated/
+# using experimental `deploy` pnpm command to isolate selected project
+# with prod deps.
+RUN pnpm --filter "${SCOPE}" deploy dist/isolated
 
 
 FROM base

@@ -1,6 +1,7 @@
 import {FastifyPluginAsync, RouteShorthandOptions} from 'fastify'
 import S from 'fluent-json-schema'
-import {verify} from '../../utils/password'
+import {hash} from '../../utils/password'
+import {userResponse} from '../schema'
 
 export interface IBody {
   password: string
@@ -13,35 +14,39 @@ export const schema: RouteShorthandOptions['schema'] = {
     .prop('email', S.string().required()),
 
   response: {
-    200: S.object().prop('jwt', S.string()),
+    200: S.object().prop('user', userResponse),
   },
 }
 
 const route: FastifyPluginAsync = async (fastify, opts): Promise<void> => {
   fastify.post<{
     Body: IBody
-  }>('/login', {schema}, async (req, rep) => {
+  }>('/signup', {schema}, async (req, rep) => {
     const {email, password} = req.body
 
-    const result = await fastify.prisma.user.findUnique({
-      where: {
+    const exists = await fastify.prisma.user.count({
+      where: {email},
+    })
+    if (exists) return rep.badRequest('User with given email already exists')
+
+    const user = await fastify.prisma.user.create({
+      data: {
         email,
+        pwdHash: await hash(password),
+        blog: {
+          create: {
+            name: 'My Blog',
+          },
+        },
       },
       select: {
         id: true,
-        pwdHash: true,
+        email: true,
         blog: {select: {id: true}},
       },
     })
 
-    if (!result) return rep.notFound()
-
-    const {pwdHash, ...user} = result
-    const authorized = await verify(password, pwdHash)
-    if (!authorized) return rep.unauthorized()
-
-    const jwt = fastify.jwt.sign({user})
-    return {jwt}
+    return {user}
   })
 }
 

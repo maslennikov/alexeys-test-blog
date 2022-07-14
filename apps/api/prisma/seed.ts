@@ -1,9 +1,12 @@
 import {Prisma, PrismaClient} from '@prisma/client'
+import {hash} from '../src/utils/password'
+
 const prisma = new PrismaClient()
 
 const userData: Prisma.UserCreateInput[] = [
   {
     email: 'alice@blogger.io',
+    pwdHash: '1234', // will be hashed in main()
     blog: {
       create: {
         name: 'Cooking with Tina',
@@ -21,6 +24,7 @@ const userData: Prisma.UserCreateInput[] = [
   },
   {
     email: 'bob@blogger.io',
+    pwdHash: '1234', // will be hashed in main()
     blog: {
       create: {
         name: "Bob's hobbies",
@@ -49,7 +53,10 @@ async function main() {
     const user = await prisma.user.upsert({
       where: {email: u.email},
       update: {},
-      create: u,
+      create: {
+        ...u,
+        pwdHash: await hash(u.pwdHash),
+      },
     })
     console.log(`Created user with id: ${user.id}`)
   }

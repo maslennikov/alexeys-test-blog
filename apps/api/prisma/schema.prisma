@@ -10,6 +10,7 @@ datasource db {
 model User {
   id        Int       @id @default(autoincrement())
   email     String    @unique @db.VarChar(255)
+  pwdHash   String
   blog      Blog?
 }
 

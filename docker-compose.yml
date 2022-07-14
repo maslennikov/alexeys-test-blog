@@ -15,10 +15,13 @@ services:
   postgres:
     image: postgres:14.1-alpine
     restart: always
-    environment:
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=postgres
-      - POSTGRES_DB=blog
+    env_file:
+      - ./apps/api/.env
+    # environment:
+      # environment is taken from env_file
+      # POSTGRES_USER: ${POSTGRES_USER}
+      # POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      # POSTGRES_DB: ${POSTGRES_DB}
     ports:
       - '5432:5432'
     volumes:

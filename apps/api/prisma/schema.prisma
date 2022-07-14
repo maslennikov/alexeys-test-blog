@@ -25,7 +25,7 @@ model Post {
   id        Int       @id @default(autoincrement())
   title     String    @db.VarChar(255)
   content   String
-  published Boolean   @default(true)
+  published Boolean   @default(false)
 
   authorId  Int
   author    Profile    @relation(fields: [authorId], references: [id])

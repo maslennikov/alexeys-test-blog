@@ -1,13 +1,19 @@
 import {FastifyPluginAsync, RouteShorthandOptions} from 'fastify'
 import S from 'fluent-json-schema'
-import {postResponse} from './schema'
+import {postResponse} from '../../../schema'
 
-export interface ICreateBody {
+export interface IParams {
+  blogId: number
+}
+
+export interface IBody {
   title: string
   content: string
 }
 
 export const schema: RouteShorthandOptions['schema'] = {
+  params: S.object().prop('blogId', S.number()),
+
   body: postResponse.only(['title', 'content']),
   response: {
     200: S.object().prop('post', postResponse),
@@ -16,17 +22,17 @@ export const schema: RouteShorthandOptions['schema'] = {
 
 const route: FastifyPluginAsync = async (fastify, opts): Promise<void> => {
   fastify.post<{
-    Body: ICreateBody
-  }>(`/`, {schema}, async (req, rep) => {
+    Params: IParams
+    Body: IBody
+  }>('/', {schema}, async (req, rep) => {
+    const {blogId} = req.params
     const {title, content} = req.body
-    // TODO fix when auth is implemented
-    const authorId = 1
 
     const post = await fastify.prisma.post.create({
       data: {
         title,
         content,
-        author: {connect: {id: authorId}},
+        blog: {connect: {id: blogId}},
       },
     })
 

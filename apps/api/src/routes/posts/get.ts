@@ -1,6 +1,6 @@
 import {FastifyPluginAsync, RouteShorthandOptions} from 'fastify'
 import S from 'fluent-json-schema'
-import {postResponse} from './schema'
+import {postResponse} from '../schema'
 
 export interface IGetParams {
   id: number
@@ -21,7 +21,7 @@ const route: FastifyPluginAsync = async (fastify, opts): Promise<void> => {
 
     const post = await fastify.prisma.post.findUnique({
       where: {id},
-      include: {author: true},
+      include: {blog: true},
     })
     return post ? {post} : rep.notFound()
   })

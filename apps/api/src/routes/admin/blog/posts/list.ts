@@ -1,16 +1,20 @@
-import type {Prisma} from '@prisma/client'
-
 import {FastifyPluginAsync, RouteShorthandOptions} from 'fastify'
 import S from 'fluent-json-schema'
-import {postResponse} from '../schema'
+import {postResponse} from '../../../schema'
 
-export interface IListQuerystring {
+export interface IParams {
+  blogId: number
+}
+
+export interface IQuerystring {
   skip: number | null
   take: number | null
   // orderBy: Prisma.SortOrder | null
 }
 
 export const schema: RouteShorthandOptions['schema'] = {
+  params: S.object().prop('blogId', S.number()),
+
   querystring: S.object() //
     .prop('skip', S.number())
     .prop('take', S.number()),
@@ -24,14 +28,17 @@ export const schema: RouteShorthandOptions['schema'] = {
 
 const route: FastifyPluginAsync = async (fastify, opts): Promise<void> => {
   fastify.get<{
-    Querystring: IListQuerystring
+    Params: IParams
+    Querystring: IQuerystring
   }>('/', {schema}, async (req, rep) => {
+    const {blogId} = req.params
+
     const posts = await fastify.prisma.post.findMany({
-      where: {published: true},
+      where: {blogId},
       select: {
         id: true,
         title: true,
-        blog: true,
+        published: true,
       },
     })
     return {total: posts.length, posts}

@@ -7,10 +7,30 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model post {
-  id         Int      @id @default(autoincrement())
-  title      String   @unique @db.VarChar(255)
-  author     String   @db.VarChar(255)
-  created_at DateTime @default(now()) @db.Timestamptz(6)
-  updated_at DateTime @default(now()) @db.Timestamptz(6)
+model User {
+  id        Int       @id @default(autoincrement())
+  email     String    @unique @db.VarChar(255)
+  pwd_hash  String
+  profile   Profile?
+}
+
+model Profile {
+  id        Int       @id @default(autoincrement())
+  userId    Int       @unique
+  user      User      @relation(fields: [userId], references: [id])
+  name      String
+  posts     Post[]
+}
+
+model Post {
+  id        Int       @id @default(autoincrement())
+  title     String    @db.VarChar(255)
+  content   String
+  published Boolean   @default(true)
+
+  authorId  Int
+  author    Profile    @relation(fields: [authorId], references: [id])
+
+  created_at DateTime @default(now())
+  updated_at DateTime @default(now())
 }

@@ -3,7 +3,8 @@ import ReactDOM from 'react-dom/client'
 import Router from './routes'
 import {ChakraProvider} from '@chakra-ui/react'
 import {SWRConfig} from 'swr'
-import {fetcher} from './utils/fetcher'
+import {fetcher} from './api'
+import {AuthProvider} from './utils/authContext'
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
@@ -14,7 +15,9 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
       }}
     >
       <ChakraProvider>
-        <Router />
+        <AuthProvider>
+          <Router />
+        </AuthProvider>
       </ChakraProvider>
     </SWRConfig>
   </React.StrictMode>

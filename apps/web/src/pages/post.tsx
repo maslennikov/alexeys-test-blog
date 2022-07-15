@@ -2,7 +2,6 @@ import {
   Container,
   Image,
   Box,
-  useColorModeValue,
   Text,
   Stack,
   Heading,
@@ -40,12 +39,7 @@ export default function PostPage() {
       </Box>
 
       <Stack flexGrow="1">
-        <Heading
-          as="h1"
-          color={useColorModeValue('gray.700', 'white')}
-          fontSize={'2xl'}
-          fontFamily={'body'}
-        >
+        <Heading as="h1" color="gray.700" fontSize={'2xl'} fontFamily={'body'}>
           {post.title}
         </Heading>
         <Text color={'gray.500'}>{post.summary}</Text>

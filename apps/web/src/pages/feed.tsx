@@ -22,21 +22,7 @@ export default function FeedPage() {
   const {posts} = data
 
   return (
-    <Container
-      maxW={'7xl'}
-      p="12"
-      gap={10}
-      display="flex"
-      flexDirection="column"
-    >
-      <Heading
-        as="h1"
-        bgGradient="linear(to-r, #f12711, #f5af19)"
-        bgClip="text"
-      >
-        Welbex Test Blogging Hub
-      </Heading>
-
+    <>
       <FeaturedArticle post={posts[0]} />
 
       <Feed posts={posts.slice(1)} />
@@ -60,7 +46,7 @@ export default function FeedPage() {
           tortor, mattis nec lacus non, placerat congue elit.
         </Text>
       </VStack>
-    </Container>
+    </>
   )
 }
 

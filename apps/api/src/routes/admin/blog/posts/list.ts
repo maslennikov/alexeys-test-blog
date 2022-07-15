@@ -49,6 +49,7 @@ const route: FastifyPluginAsync = async (fastify, opts): Promise<void> => {
       select: {
         id: true,
         title: true,
+        summary: true,
         createdAt: true,
         publishedAt: true,
       },

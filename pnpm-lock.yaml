@@ -12,6 +12,7 @@ importers:
 
   apps/api:
     specifiers:
+      '@faker-js/faker': ^7.3.0
       '@fastify/auth': ^3.0.2
       '@fastify/jwt': ^6.3.0
       '@fastify/sensible': ^5.1.0
@@ -39,6 +40,7 @@ importers:
       fastify-plugin: 4.0.0
       fluent-json-schema: 3.1.0
     devDependencies:
+      '@faker-js/faker': 7.3.0
       '@types/node': 18.0.3
       concurrently: 7.2.2
       esbuild: 0.14.49
@@ -1273,6 +1275,11 @@ packages:
   /@emotion/weak-memoize/0.2.5:
     resolution: {integrity: sha512-6U71C2Wp7r5XtFtQzYrW5iKFT67OixrSxjI4MptCHzdSVlgabczzqLe0ZSgnub/5Kp4hSbpDB1tMytZY9pwxxA==}
     dev: false
+
+  /@faker-js/faker/7.3.0:
+    resolution: {integrity: sha512-1W0PZezq2rxlAssoWemi9gFRD8IQxvf0FPL5Km3TOmGHFG7ib0TbFBJ0yC7D/1NsxunjNTK6WjUXV8ao/mKZ5w==}
+    engines: {node: '>=14.0.0', npm: '>=6.0.0'}
+    dev: true
 
   /@fastify/ajv-compiler/3.1.2:
     resolution: {integrity: sha512-m2nzzQJeuVmeGOB9rnII9sZiY8AZ02a9WMQfMBfK1jxdFnxm3FPYKGbYpPjODj4halNogwpolyugbTNpnDCi0A==}

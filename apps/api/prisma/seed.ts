@@ -1,5 +1,6 @@
 import {Prisma, PrismaClient} from '@prisma/client'
 import {hash} from '../src/utils/password'
+import {faker} from '@faker-js/faker'
 
 const prisma = new PrismaClient()
 
@@ -14,11 +15,13 @@ const userData: Prisma.UserCreateInput[] = [
           create: [
             {
               title: 'My first post',
-              content: 'Hello, all!',
+              summary: "My name is Tina, and I'll teach you cooking",
+              content: faker.lorem.text(),
               publishedAt: new Date('2022-01-05'),
             },
             {
               title: 'Draft of second post',
+              summary: 'Work in progress...',
               content: 'Working...',
             },
           ],
@@ -33,18 +36,14 @@ const userData: Prisma.UserCreateInput[] = [
       create: {
         name: "Bob's hobbies",
         posts: {
-          create: [
-            {
-              title: 'My favorite movies',
-              content: 'Terminator is my fav',
-              publishedAt: new Date('2022-01-01'),
-            },
-            {
-              title: 'My favorite shows',
-              content: 'I love Last Week Tonight',
-              publishedAt: new Date('2022-01-09'),
-            },
-          ],
+          create: ['2022-01-01', '2022-01-09'].map((date) => ({
+            title: faker.fake(
+              '{{hacker.ingverb}} {{hacker.adjective}} {{hacker.noun}}'
+            ),
+            summary: faker.hacker.phrase(),
+            content: faker.lorem.paragraphs(),
+            publishedAt: new Date(date),
+          })),
         },
       },
     },
@@ -56,19 +55,10 @@ const userData: Prisma.UserCreateInput[] = [
       create: {
         name: 'Andy Garson',
         posts: {
-          create: [
-            'One',
-            'Two',
-            'Three',
-            'Four',
-            'Five',
-            'Six',
-            'Seven',
-            'Eight',
-            'Nine',
-          ].map((title, i) => ({
-            title,
-            content: `Post number ${title}!`,
+          create: Array.from(Array(10)).map((_, i) => ({
+            title: faker.commerce.productName(),
+            summary: faker.commerce.productDescription(),
+            content: faker.lorem.paragraphs(),
             publishedAt: new Date(
               `2022-01-${(i + 1).toString().padStart(2, '0')}`
             ),

@@ -12,6 +12,7 @@ export const userResponse = S.object() //
 export const postResponse = S.object() //
   .prop('id', S.number())
   .prop('title', S.string())
+  .prop('summary', S.string())
   .prop('content', S.string())
   .prop('blog', blogResponse)
   .prop('createdAt', S.number())

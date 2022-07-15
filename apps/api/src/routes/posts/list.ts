@@ -1,5 +1,3 @@
-import type {Prisma} from '@prisma/client'
-
 import {FastifyPluginAsync, FastifySchema} from 'fastify'
 import S from 'fluent-json-schema'
 import {postResponse} from '../schema'
@@ -60,6 +58,7 @@ const route: FastifyPluginAsync = async (fastify, opts): Promise<void> => {
       select: {
         id: true,
         title: true,
+        summary: true,
         publishedAt: true,
         blog: true,
       },

@@ -8,12 +8,14 @@ import {
   useColorModeValue,
   Image,
 } from '@chakra-ui/react'
+import {Post} from '../types'
 import {coverUrlById} from '../utils/mockUrls'
+import {PostMeta} from './postAuthorMeta'
 
 type PostCardProps = {
-  id: number
+  post: Post
 }
-export function PostCard({id}: PostCardProps) {
+export function AtricleCard({post}: PostCardProps) {
   return (
     <Center py={6}>
       <Box
@@ -34,7 +36,7 @@ export function PostCard({id}: PostCardProps) {
           pos={'relative'}
         >
           <Image
-            src={coverUrlById(id, 1200)}
+            src={coverUrlById(post.id, 1200)}
             objectFit="cover"
             width="100%"
             height="100%"
@@ -55,24 +57,14 @@ export function PostCard({id}: PostCardProps) {
             fontSize={'2xl'}
             fontFamily={'body'}
           >
-            Boost your conversion rate
+            {post.title}
           </Heading>
-          <Text color={'gray.500'}>
-            Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam
-            nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam
-            erat, sed diam voluptua. At vero eos et accusam et justo duo dolores
-            et ea rebum.
-          </Text>
+          <Text color={'gray.500'}>{post.summary}</Text>
         </Stack>
-        <Stack mt={6} direction={'row'} spacing={4} align={'center'}>
-          <Avatar
-            src={'https://avatars0.githubusercontent.com/u/1164541?v=4'}
-          />
-          <Stack direction={'column'} spacing={0} fontSize={'sm'}>
-            <Text fontWeight={600}>Achim Rolle</Text>
-            <Text color={'gray.500'}>Feb 08, 2021 · 6min read</Text>
-          </Stack>
-        </Stack>
+        <PostMeta //
+          blog={post.blog}
+          date={new Date(post.publishedAt)}
+        />
       </Box>
     </Center>
   )

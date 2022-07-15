@@ -25,7 +25,7 @@ export function FeaturedArticle({post}: FeaturedArticleProps) {
       display="flex"
       flexDirection={{base: 'column', sm: 'row'}}
       justifyContent="space-between"
-      mb={4}
+      mb={6}
     >
       <Box
         display="flex"
@@ -48,20 +48,21 @@ export function FeaturedArticle({post}: FeaturedArticleProps) {
         </Box>
 
         <Box
-          position="absolute"
-          width={{base: '100%', sm: '85%'}}
+          position="relative"
+          marginLeft={{base: '0', sm: 6}}
+          w="100%"
           h="100%"
-          left={{base: '0', sm: 6}}
-          top={6}
         >
-          <Image
-            borderRadius="lg"
-            src={coverUrlById(post.id)}
-            alt="some good alt text"
-            objectFit="cover"
-            h="100%"
-            w="100%"
-          />
+          <Box position="absolute" width={{base: '100%', sm: '85%'}} h="100%">
+            <Image
+              borderRadius="lg"
+              src={coverUrlById(post.id)}
+              alt="some good alt text"
+              objectFit="cover"
+              h="100%"
+              w="100%"
+            />
+          </Box>
         </Box>
       </Box>
       <Box
@@ -71,7 +72,7 @@ export function FeaturedArticle({post}: FeaturedArticleProps) {
         marginTop={{base: '3', sm: '0'}}
       >
         <Flex>
-          <Tag size={'md'} variant="solid" colorScheme="orange">
+          <Tag size={'md'} variant="solid" colorScheme="green">
             new in blogs
           </Tag>
         </Flex>

@@ -8,15 +8,19 @@ import {
   VStack,
   Flex,
 } from '@chakra-ui/react'
+import useSWR from 'swr'
 import {AtricleCard} from '../components/articleCard'
 import {FeaturedArticle} from '../components/featuredArticle'
-import {getPosts} from '../utils/mockData'
 import {Post} from '../types'
 
-// FIXME MOCKED RESULTS
-const posts = getPosts()
-
 export default function FeedPage() {
+  const {data, error} = useSWR('/posts')
+
+  if (error) return <div>failed to load</div>
+  if (!data) return <div>loading...</div>
+
+  const {posts} = data
+
   return (
     <Container
       maxW={'7xl'}

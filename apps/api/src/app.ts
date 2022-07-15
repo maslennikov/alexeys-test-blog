@@ -2,6 +2,7 @@ import {FastifyPluginAsync} from 'fastify'
 import sensibleDecoratorsPlugin from './plugins/sensible'
 import prismaPlugin from './plugins/prisma'
 import authPlugin from './plugins/auth'
+import corsPlugin from './plugins/cors'
 
 import swagger from './routes/swagger'
 import healthcheck from './routes/healthcheck'
@@ -18,6 +19,7 @@ const app: FastifyPluginAsync<AppOptions> = async (
   fastify.register(sensibleDecoratorsPlugin)
   fastify.register(prismaPlugin)
   fastify.register(authPlugin)
+  fastify.register(corsPlugin)
 
   fastify.register(swagger)
 

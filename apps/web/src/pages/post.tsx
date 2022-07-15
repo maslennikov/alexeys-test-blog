@@ -6,17 +6,22 @@ import {
   Text,
   Stack,
   Heading,
-  LinkOverlay,
   Flex,
 } from '@chakra-ui/react'
+import {useParams} from 'react-router-dom'
+import useSWR from 'swr'
 import {PostMeta} from '../components/postAuthorMeta'
-import {getPost} from '../utils/mockData'
 import {coverUrlById} from '../utils/mockUrls'
 
-// FIXME
-const post = getPost()
-
 export default function PostPage() {
+  const params = useParams()
+  const {data, error} = useSWR(`/posts/${params.id}`)
+
+  if (error) return <div>failed to load</div>
+  if (!data) return <div>loading...</div>
+
+  const {post} = data
+
   return (
     <Container
       maxW={'2xl'}

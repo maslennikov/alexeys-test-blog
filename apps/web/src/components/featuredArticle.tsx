@@ -7,10 +7,13 @@ import {
   useColorModeValue,
   Tag,
   Flex,
+  LinkBox,
+  LinkOverlay,
 } from '@chakra-ui/react'
 import {Post} from '../types'
 import {coverUrlById} from '../utils/mockUrls'
 import {PostMeta} from './postAuthorMeta'
+import {Link as RouterLink} from 'react-router-dom'
 
 type FeaturedArticleProps = {
   post: Post
@@ -18,7 +21,7 @@ type FeaturedArticleProps = {
 
 export function FeaturedArticle({post}: FeaturedArticleProps) {
   return (
-    <Box
+    <LinkBox
       display="flex"
       flexDirection={{base: 'column', sm: 'row'}}
       justifyContent="space-between"
@@ -30,25 +33,9 @@ export function FeaturedArticle({post}: FeaturedArticleProps) {
         marginRight="3"
         position="relative"
         alignItems="center"
+        minH="240px"
       >
-        <Box
-          width={{base: '100%', sm: '85%'}}
-          zIndex="2"
-          marginLeft={{base: '0', sm: '5%'}}
-          marginTop="5%"
-        >
-          <Link textDecoration="none" _hover={{textDecoration: 'none'}}>
-            <Image
-              borderRadius="lg"
-              src={coverUrlById(post.id)}
-              alt="some good alt text"
-              objectFit="cover"
-              maxH="300px"
-              w="100%"
-            />
-          </Link>
-        </Box>
-        <Box zIndex="1" width="100%" position="absolute" height="100%">
+        <Box width="100%" position="absolute" height="100%">
           <Box
             bgGradient={useColorModeValue(
               'radial(orange.600 1px, transparent 1px)',
@@ -57,6 +44,23 @@ export function FeaturedArticle({post}: FeaturedArticleProps) {
             backgroundSize="20px 20px"
             opacity="0.4"
             height="100%"
+          />
+        </Box>
+
+        <Box
+          position="absolute"
+          width={{base: '100%', sm: '85%'}}
+          h="100%"
+          left={{base: '0', sm: 6}}
+          top={6}
+        >
+          <Image
+            borderRadius="lg"
+            src={coverUrlById(post.id)}
+            alt="some good alt text"
+            objectFit="cover"
+            h="100%"
+            w="100%"
           />
         </Box>
       </Box>
@@ -72,9 +76,9 @@ export function FeaturedArticle({post}: FeaturedArticleProps) {
           </Tag>
         </Flex>
         <Heading marginTop="1">
-          <Link textDecoration="none" _hover={{textDecoration: 'none'}}>
+          <LinkOverlay as={RouterLink} to={`/posts/${post.id}`}>
             {post.title}
-          </Link>
+          </LinkOverlay>
         </Heading>
         <Text
           as="p"
@@ -89,6 +93,6 @@ export function FeaturedArticle({post}: FeaturedArticleProps) {
           date={new Date(post.publishedAt)}
         />
       </Box>
-    </Box>
+    </LinkBox>
   )
 }

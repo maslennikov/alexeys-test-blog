@@ -36,7 +36,7 @@ const userData: Prisma.UserCreateInput[] = [
       create: {
         name: "Bob's hobbies",
         posts: {
-          create: ['2022-01-01', '2022-01-09'].map((date) => ({
+          create: ['2022-01-01', '2022-01-10', '2022-01-20'].map((date) => ({
             title: faker.fake(
               '{{hacker.ingverb}} {{hacker.adjective}} {{hacker.noun}}'
             ),

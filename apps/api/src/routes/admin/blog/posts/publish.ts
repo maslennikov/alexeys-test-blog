@@ -1,6 +1,6 @@
 import {FastifyPluginAsync, FastifySchema} from 'fastify'
 import S from 'fluent-json-schema'
-import {IParams, schema as deleteSchema} from './delete'
+import {IParams, schema as getSchema} from './get'
 import {postResponse} from '../../../schema'
 
 export interface IBody {
@@ -8,7 +8,7 @@ export interface IBody {
 }
 
 export const schema: FastifySchema = {
-  params: deleteSchema?.params,
+  params: getSchema?.params,
 
   body: S.object().prop('published', S.boolean()),
 

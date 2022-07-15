@@ -1,44 +1,48 @@
 import {FastifyPluginAsync, FastifySchema} from 'fastify'
 import S from 'fluent-json-schema'
 import {postResponse} from '../../../schema'
-import {IParams, schema as getSchema} from './get'
+
+export interface IParams {
+  id: number
+  blogId: number
+}
+
+export interface IBody {
+  published: boolean
+}
 
 export const schema: FastifySchema = {
-  params: getSchema.params,
+  params: S.object()
+    .prop('id', S.number()) //
+    .prop('blogId', S.number()),
 
   response: {
-    200: S.object()
-      .prop('post', postResponse)
-      .description('Body of a deleted post'),
+    200: S.object().prop('post', postResponse),
   },
 
   security: [{bearerAuth: []}],
   tags: ['publisher'],
-  summary: 'Delete the post',
+  summary: 'Get a post from this blog',
   description: `
-  On success, deleted post data will be returned in response.
+  Gets any existing post
 
-  **Post data will be deleted permanently**`,
+  **Request for any post not from this blog will fail with not authorized**`,
 }
 
 const route: FastifyPluginAsync = async (fastify, opts): Promise<void> => {
-  fastify.delete<{
+  fastify.get<{
     Params: IParams
+    Body: IBody
   }>('/:id', {schema}, async (req, rep) => {
     const {id, blogId} = req.params
 
-    const res = await fastify.prisma.post.findUnique({
+    const post = await fastify.prisma.post.findUnique({
       where: {id},
-      select: {blogId: true},
     })
 
-    if (!res) return rep.notFound()
-    if (res.blogId != blogId)
+    if (!post) return rep.notFound()
+    if (post.blogId != blogId)
       return rep.unauthorized('Post belongs to another blog')
-
-    const post = await fastify.prisma.post.delete({
-      where: {id},
-    })
 
     return {post}
   })

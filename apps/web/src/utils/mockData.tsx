@@ -1,3 +1,19 @@
+export function getPost() {
+  return {
+    id: 10,
+    title: 'Refined Concrete Chair',
+    summary:
+      'The slim & simple Maple Gaming Keyboard from Dev Byte comes with a sleek body and 7- Color RGB LED Back-lighting for smart functionality',
+    content:
+      'Quas ullam aut qui ipsum mollitia esse aut. Sequi fugiat numquam iusto veniam ea magni quia quasi odio. Repudiandae qui sint optio cumque aspernatur aut minus rerum. Fugiat placeat aperiam quia.\nDolores veritatis qui dolores voluptas et excepturi itaque et. Qui reprehenderit in nostrum quo. Qui modi dignissimos totam quia ea. Provident enim cumque dolores enim aliquid eos. Magni illo eum sint corrupti harum iste voluptatibus voluptas. Accusantium culpa perferendis provident illo laudantium voluptas hic distinctio incidunt.\nUllam sed ea dolor odio delectus ullam exercitationem. Dolor voluptas quam repellat qui eum qui possimus ratione. Eos ullam ut ea.',
+    blog: {
+      id: 3,
+      name: 'Andy Garson',
+    },
+    publishedAt: 1641427200000,
+  }
+}
+
 export function getPosts() {
   return [
     {

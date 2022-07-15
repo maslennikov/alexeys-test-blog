@@ -8,15 +8,15 @@ import {
   VStack,
   Flex,
 } from '@chakra-ui/react'
-import {AtricleCard} from './components/articleCard'
-import {FeaturedArticle} from './components/featuredArticle'
-import {getPosts} from './utils/mockData'
-import {Post} from './types'
+import {AtricleCard} from '../components/articleCard'
+import {FeaturedArticle} from '../components/featuredArticle'
+import {getPosts} from '../utils/mockData'
+import {Post} from '../types'
 
 // FIXME MOCKED RESULTS
 const posts = getPosts()
 
-export default function ArticleList() {
+export default function FeedPage() {
   return (
     <Container
       maxW={'7xl'}
@@ -71,6 +71,7 @@ function Feed({posts}: {posts: Post[]}) {
         {posts.map((post) => (
           <WrapItem
             flexGrow={1}
+            alignItems="stretch"
             maxW={{base: '100%', sm: '45%', lg: '30%'}}
             key={post.id}
           >

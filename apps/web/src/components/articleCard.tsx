@@ -4,28 +4,37 @@ import {
   Heading,
   Text,
   Stack,
-  Avatar,
   useColorModeValue,
   Image,
+  LinkBox,
+  LinkOverlay,
+  Flex,
 } from '@chakra-ui/react'
 import {Post} from '../types'
 import {coverUrlById} from '../utils/mockUrls'
 import {PostMeta} from './postAuthorMeta'
+import {Link as RouterLink} from 'react-router-dom'
 
 type PostCardProps = {
   post: Post
 }
 export function AtricleCard({post}: PostCardProps) {
   return (
-    <Center py={6}>
-      <Box
+    <Center>
+      <LinkBox
+        as={Flex}
+        direction="column"
         maxW={'445px'}
         w={'full'}
+        h="full"
         bg={useColorModeValue('white', 'gray.900')}
-        boxShadow={'2xl'}
+        boxShadow="base"
         rounded={'md'}
         p={6}
         overflow={'hidden'}
+        _hover={{
+          boxShadow: '2xl',
+        }}
       >
         <Box
           h={'210px'}
@@ -42,7 +51,7 @@ export function AtricleCard({post}: PostCardProps) {
             height="100%"
           />
         </Box>
-        <Stack>
+        <Stack flexGrow="1">
           <Text
             color={'green.500'}
             textTransform={'uppercase'}
@@ -57,7 +66,9 @@ export function AtricleCard({post}: PostCardProps) {
             fontSize={'2xl'}
             fontFamily={'body'}
           >
-            {post.title}
+            <LinkOverlay as={RouterLink} to={`/posts/${post.id}`}>
+              {post.title}
+            </LinkOverlay>
           </Heading>
           <Text color={'gray.500'}>{post.summary}</Text>
         </Stack>
@@ -65,7 +76,7 @@ export function AtricleCard({post}: PostCardProps) {
           blog={post.blog}
           date={new Date(post.publishedAt)}
         />
-      </Box>
+      </LinkBox>
     </Center>
   )
 }

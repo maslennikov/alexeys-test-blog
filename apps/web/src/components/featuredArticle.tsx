@@ -12,7 +12,11 @@ import {Post} from '../types'
 import {coverUrlById} from '../utils/mockUrls'
 import {PostMeta} from './postAuthorMeta'
 
-export function FeaturedArticle({post}: {post: Post}) {
+type FeaturedArticleProps = {
+  post: Post
+}
+
+export function FeaturedArticle({post}: FeaturedArticleProps) {
   return (
     <Box
       display="flex"
@@ -39,8 +43,8 @@ export function FeaturedArticle({post}: {post: Post}) {
               src={coverUrlById(post.id)}
               alt="some good alt text"
               objectFit="cover"
-              // h="210px"
-              // w="100%"
+              maxH="300px"
+              w="100%"
             />
           </Link>
         </Box>
@@ -60,7 +64,6 @@ export function FeaturedArticle({post}: {post: Post}) {
         display="flex"
         flex="1"
         flexDirection="column"
-        justifyContent="center"
         marginTop={{base: '3', sm: '0'}}
       >
         <Flex>

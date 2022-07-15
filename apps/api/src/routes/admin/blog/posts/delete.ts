@@ -1,4 +1,4 @@
-import {FastifyPluginAsync, RouteShorthandOptions} from 'fastify'
+import {FastifyPluginAsync, FastifySchema} from 'fastify'
 import S from 'fluent-json-schema'
 import {postResponse} from '../../../schema'
 
@@ -7,14 +7,24 @@ export interface IParams {
   blogId: number
 }
 
-export const schema: RouteShorthandOptions['schema'] = {
+export const schema: FastifySchema = {
   params: S.object()
     .prop('id', S.number()) //
     .prop('blogId', S.number()),
 
   response: {
-    200: S.object().prop('post', postResponse),
+    200: S.object()
+      .prop('post', postResponse)
+      .description('Body of a deleted post'),
   },
+
+  security: [{bearerAuth: []}],
+  tags: ['publisher'],
+  summary: 'Delete the post',
+  description: `
+  On success, deleted post data will be returned in response.
+
+  **Post data will be deleted permanently**`,
 }
 
 const route: FastifyPluginAsync = async (fastify, opts): Promise<void> => {

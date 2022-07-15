@@ -3,6 +3,7 @@ import sensibleDecoratorsPlugin from './plugins/sensible'
 import prismaPlugin from './plugins/prisma'
 import authPlugin from './plugins/auth'
 
+import swagger from './routes/swagger'
 import healthcheck from './routes/healthcheck'
 import auth from './routes/auth'
 import posts from './routes/posts'
@@ -17,6 +18,8 @@ const app: FastifyPluginAsync<AppOptions> = async (
   fastify.register(sensibleDecoratorsPlugin)
   fastify.register(prismaPlugin)
   fastify.register(authPlugin)
+
+  fastify.register(swagger)
 
   fastify.register(healthcheck, {prefix: '/_app'})
   fastify.register(auth, {prefix: '/auth'})

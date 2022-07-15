@@ -10,8 +10,8 @@ const routes: FastifyPluginAsync = async (fastify, opts): Promise<void> => {
     async (fastify) => {
       fastify.register(list)
       fastify.register(create)
-      fastify.register(remove)
       fastify.register(publish)
+      fastify.register(remove)
       // fastify.register(get)
     },
     {prefix: '/posts'}

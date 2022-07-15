@@ -15,7 +15,11 @@ const userData: Prisma.UserCreateInput[] = [
             {
               title: 'My first post',
               content: 'Hello, all!',
-              published: true,
+              publishedAt: new Date('2022-01-05'),
+            },
+            {
+              title: 'Draft of second post',
+              content: 'Working...',
             },
           ],
         },
@@ -33,14 +37,42 @@ const userData: Prisma.UserCreateInput[] = [
             {
               title: 'My favorite movies',
               content: 'Terminator is my fav',
-              published: true,
+              publishedAt: new Date('2022-01-01'),
             },
             {
               title: 'My favorite shows',
               content: 'I love Last Week Tonight',
-              published: true,
+              publishedAt: new Date('2022-01-09'),
             },
           ],
+        },
+      },
+    },
+  },
+  {
+    email: 'andy@blogger.io',
+    pwdHash: '1234', // will be hashed in main()
+    blog: {
+      create: {
+        name: 'Andy Garson',
+        posts: {
+          create: [
+            'One',
+            'Two',
+            'Three',
+            'Four',
+            'Five',
+            'Six',
+            'Seven',
+            'Eight',
+            'Nine',
+          ].map((title, i) => ({
+            title,
+            content: `Post number ${title}!`,
+            publishedAt: new Date(
+              `2022-01-${(i + 1).toString().padStart(2, '0')}`
+            ),
+          })),
         },
       },
     },

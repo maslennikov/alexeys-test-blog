@@ -1,24 +1,22 @@
-import {FastifyPluginAsync} from 'fastify'
+import {FastifyPluginAsync, FastifySchema} from 'fastify'
 import S from 'fluent-json-schema'
 import {version} from '../../package.json'
 
-const status: FastifyPluginAsync = async (fastify, opts): Promise<void> => {
-  fastify.route({
-    method: 'GET',
-    url: '/status',
-    handler: onStatus,
-    schema: {
-      response: {
-        200: S.object() //
-          .prop('status', S.string())
-          .prop('version', S.string()),
-      },
-    },
-  })
+const schema: FastifySchema = {
+  response: {
+    200: S.object() //
+      .prop('status', S.string())
+      .prop('version', S.string()),
+  },
+  summary: 'Healthcheck',
+  description: `
+  Returns \`ok\` if server is running`,
+}
 
-  async function onStatus(req, reply) {
+const status: FastifyPluginAsync = async (fastify, opts): Promise<void> => {
+  fastify.get('/status', {schema}, async () => {
     return {status: 'ok', version}
-  }
+  })
 }
 
 export default status

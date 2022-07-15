@@ -15,4 +15,4 @@ export const postResponse = S.object() //
   .prop('content', S.string())
   .prop('blog', blogResponse)
   .prop('createdAt', S.number())
-  .prop('published', S.boolean())
+  .prop('publishedAt', S.number())

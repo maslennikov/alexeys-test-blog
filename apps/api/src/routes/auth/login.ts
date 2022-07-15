@@ -1,4 +1,4 @@
-import {FastifyPluginAsync, RouteShorthandOptions} from 'fastify'
+import {FastifyPluginAsync, FastifySchema} from 'fastify'
 import S from 'fluent-json-schema'
 import {verify} from '../../utils/password'
 
@@ -7,7 +7,7 @@ export interface IBody {
   email: string
 }
 
-export const schema: RouteShorthandOptions['schema'] = {
+export const schema: FastifySchema = {
   body: S.object() //
     .prop('password', S.string().required())
     .prop('email', S.string().required()),
@@ -15,6 +15,13 @@ export const schema: RouteShorthandOptions['schema'] = {
   response: {
     200: S.object().prop('jwt', S.string()),
   },
+
+  tags: ['auth'],
+  summary: 'Exchange credentials for a JWT token',
+  description: `
+  Apply received JWT token to \`Authorization\` bearer header.
+
+  **No cookie will be set**`,
 }
 
 const route: FastifyPluginAsync = async (fastify, opts): Promise<void> => {

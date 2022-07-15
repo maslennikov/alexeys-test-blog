@@ -1,4 +1,4 @@
-import {FastifyPluginAsync, RouteShorthandOptions} from 'fastify'
+import {FastifyPluginAsync, FastifySchema} from 'fastify'
 import S from 'fluent-json-schema'
 import {hash} from '../../utils/password'
 import {userResponse} from '../schema'
@@ -8,7 +8,7 @@ export interface IBody {
   email: string
 }
 
-export const schema: RouteShorthandOptions['schema'] = {
+export const schema: FastifySchema = {
   body: S.object() //
     .prop('password', S.string().required())
     .prop('email', S.string().required()),
@@ -16,6 +16,13 @@ export const schema: RouteShorthandOptions['schema'] = {
   response: {
     200: S.object().prop('user', userResponse),
   },
+
+  tags: ['auth'],
+  summary: 'Register a user',
+  description: `
+  User will be created with a default blog configuration.
+
+  **JWT will not be issued automatically, use \`login\` call with same credentials**`,
 }
 
 const route: FastifyPluginAsync = async (fastify, opts): Promise<void> => {

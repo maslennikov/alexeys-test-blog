@@ -1,4 +1,4 @@
-import {FastifyPluginAsync, RouteShorthandOptions} from 'fastify'
+import {FastifyPluginAsync, FastifySchema} from 'fastify'
 import S from 'fluent-json-schema'
 import {IParams, schema as deleteSchema} from './delete'
 import {postResponse} from '../../../schema'
@@ -7,12 +7,20 @@ export interface IBody {
   published: boolean
 }
 
-export const schema: RouteShorthandOptions['schema'] = {
+export const schema: FastifySchema = {
   params: deleteSchema?.params,
+
   body: S.object().prop('published', S.boolean()),
+
   response: {
-    200: S.object().prop('post', postResponse),
+    200: S.object().prop('post', postResponse.only(['id', 'publishedAt'])),
   },
+
+  security: [{bearerAuth: []}],
+  tags: ['publisher'],
+  summary: 'Publish or unpublish the post',
+  description: `
+  When publishing, current date is applied as publish date.`,
 }
 
 const route: FastifyPluginAsync = async (fastify, opts): Promise<void> => {
@@ -34,7 +42,8 @@ const route: FastifyPluginAsync = async (fastify, opts): Promise<void> => {
 
     const post = await fastify.prisma.post.update({
       where: {id},
-      data: {published},
+      data: {publishedAt: published ? new Date() : null},
+      select: {id: true, publishedAt: true},
     })
 
     return {post}

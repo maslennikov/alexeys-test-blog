@@ -1,4 +1,4 @@
-import {FastifyPluginAsync, RouteShorthandOptions} from 'fastify'
+import {FastifyPluginAsync, FastifySchema} from 'fastify'
 import S from 'fluent-json-schema'
 import {postResponse} from '../schema'
 
@@ -6,11 +6,15 @@ export interface IGetParams {
   id: number
 }
 
-export const schema: RouteShorthandOptions['schema'] = {
+export const schema: FastifySchema = {
   params: S.object().prop('id', S.number()),
   response: {
-    200: S.object().prop('post', postResponse),
+    200: S.object().prop('post', postResponse.without(['createdAt'])),
   },
+  tags: ['reader'],
+  summary: 'Get a published post',
+  description: `
+  **Request for an unpublished post will fail with 404**`,
 }
 
 const route: FastifyPluginAsync = async (fastify, opts): Promise<void> => {

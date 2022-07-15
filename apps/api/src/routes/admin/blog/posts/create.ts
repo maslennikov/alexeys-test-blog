@@ -14,7 +14,10 @@ export interface IBody {
 export const schema: FastifySchema = {
   params: S.object().prop('blogId', S.number()),
 
-  body: postResponse.only(['title', 'content']),
+  body: postResponse
+    .only(['title', 'content']) //
+    .required(['title', 'content']),
+
   response: {
     200: S.object().prop('post', postResponse),
   },

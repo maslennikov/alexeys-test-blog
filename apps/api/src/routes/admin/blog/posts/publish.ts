@@ -28,17 +28,8 @@ const route: FastifyPluginAsync = async (fastify, opts): Promise<void> => {
     Params: IParams
     Body: IBody
   }>('/publish/:id', {schema}, async (req, rep) => {
-    const {id, blogId} = req.params
+    const {id} = req.params
     const {published} = req.body
-
-    const res = await fastify.prisma.post.findUnique({
-      where: {id},
-      select: {blogId: true},
-    })
-
-    if (!res) return rep.notFound()
-    if (res.blogId != blogId)
-      return rep.unauthorized('Post belongs to another blog')
 
     const post = await fastify.prisma.post.update({
       where: {id},

@@ -30,6 +30,8 @@ export default function FeedPage() {
         <ArticlesFeed posts={posts.slice(1)} />
       </Flex>
 
+      <CTA label="Create more amazing content and connect with your audience" />
+
       <VStack paddingTop="40px" spacing="2" alignItems="flex-start">
         <Heading as="h2">What we write about</Heading>
         <Text as="p" fontSize="lg">
@@ -51,6 +53,12 @@ export default function FeedPage() {
       </VStack>
     </>
   ) : (
+    <CTA label="Create your first article on this platform" />
+  )
+}
+
+function CTA({label}) {
+  return (
     <Container
       rounded="md"
       centerContent
@@ -63,7 +71,7 @@ export default function FeedPage() {
         variant="ghost"
         color="gray.500"
       >
-        Create your first article on this platform
+        {label}
       </Button>
     </Container>
   )

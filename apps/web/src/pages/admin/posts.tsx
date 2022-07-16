@@ -7,7 +7,7 @@ import {
   Button,
 } from '@chakra-ui/react'
 import React from 'react'
-import {Link as RouterLink, Outlet, useSearchParams} from 'react-router-dom'
+import {Link as RouterLink, useSearchParams} from 'react-router-dom'
 import useSWR from 'swr'
 import {ArticlesFeed} from '../../components/articlesFeed'
 import {AuthContext} from '../../utils/authContext'

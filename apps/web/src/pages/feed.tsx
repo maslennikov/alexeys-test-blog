@@ -1,7 +1,16 @@
-import {Heading, Text, Divider, Container, VStack, Flex} from '@chakra-ui/react'
+import {
+  Heading,
+  Text,
+  Divider,
+  Container,
+  VStack,
+  Flex,
+  Button,
+} from '@chakra-ui/react'
 import useSWR from 'swr'
 import {FeaturedArticle} from '../components/featuredArticle'
 import {ArticlesFeed} from '../components/articlesFeed'
+import {Link as RouterLink} from 'react-router-dom'
 
 export default function FeedPage() {
   const {data, error} = useSWR('/posts')
@@ -11,7 +20,7 @@ export default function FeedPage() {
 
   const {posts} = data
 
-  return (
+  return posts?.length ? (
     <>
       <FeaturedArticle post={posts[0]} />
 
@@ -41,5 +50,21 @@ export default function FeedPage() {
         </Text>
       </VStack>
     </>
+  ) : (
+    <Container
+      rounded="md"
+      centerContent
+      p={10}
+      bgGradient="linear(to-tr, gray.50, gray.100, gray.50)"
+    >
+      <Button
+        as={RouterLink}
+        to="/admin?newpost"
+        variant="ghost"
+        color="gray.500"
+      >
+        Create your first article on this platform
+      </Button>
+    </Container>
   )
 }

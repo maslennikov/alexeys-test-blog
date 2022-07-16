@@ -12,7 +12,7 @@ import {
 } from '@chakra-ui/react'
 import {Post} from '../types'
 import {coverUrlById} from '../utils/mockUrls'
-import {PostMeta} from './postAuthorMeta'
+import {ArticleMeta} from './articleMeta'
 import {Link as RouterLink} from 'react-router-dom'
 
 type FeaturedArticleProps = {
@@ -33,7 +33,6 @@ export function FeaturedArticle({post}: FeaturedArticleProps) {
         marginRight="3"
         position="relative"
         alignItems="center"
-        minH="240px"
       >
         <Box width="100%" position="absolute" height="100%">
           <Box
@@ -52,6 +51,7 @@ export function FeaturedArticle({post}: FeaturedArticleProps) {
           marginLeft={{base: '0', sm: 6}}
           w="100%"
           h="100%"
+          minH="240px"
         >
           <Box position="absolute" width={{base: '100%', sm: '85%'}} h="100%">
             <Image
@@ -72,7 +72,7 @@ export function FeaturedArticle({post}: FeaturedArticleProps) {
         marginTop={{base: '3', sm: '0'}}
       >
         <Flex>
-          <Tag size={'md'} variant="solid" colorScheme="green">
+          <Tag size={'md'} variant="solid" colorScheme="orange">
             new in blogs
           </Tag>
         </Flex>
@@ -89,10 +89,7 @@ export function FeaturedArticle({post}: FeaturedArticleProps) {
         >
           {post.summary}
         </Text>
-        <PostMeta
-          blog={post.blog} //
-          date={new Date(post.publishedAt)}
-        />
+        <ArticleMeta {...post} />
       </Box>
     </LinkBox>
   )

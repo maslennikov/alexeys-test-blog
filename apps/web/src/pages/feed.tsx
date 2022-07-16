@@ -1,17 +1,7 @@
-import {
-  Heading,
-  Text,
-  Divider,
-  Wrap,
-  WrapItem,
-  Container,
-  VStack,
-  Flex,
-} from '@chakra-ui/react'
+import {Heading, Text, Divider, Container, VStack, Flex} from '@chakra-ui/react'
 import useSWR from 'swr'
-import {AtricleCard} from '../components/articleCard'
 import {FeaturedArticle} from '../components/featuredArticle'
-import {Post} from '../types'
+import {ArticlesFeed} from '../components/articlesFeed'
 
 export default function FeedPage() {
   const {data, error} = useSWR('/posts')
@@ -25,7 +15,11 @@ export default function FeedPage() {
     <>
       <FeaturedArticle post={posts[0]} />
 
-      <Feed posts={posts.slice(1)} />
+      <Flex direction="column">
+        <Heading as="h2">Latest articles</Heading>
+        <Divider my="2" />
+        <ArticlesFeed posts={posts.slice(1)} />
+      </Flex>
 
       <VStack paddingTop="40px" spacing="2" alignItems="flex-start">
         <Heading as="h2">What we write about</Heading>
@@ -47,28 +41,5 @@ export default function FeedPage() {
         </Text>
       </VStack>
     </>
-  )
-}
-
-function Feed({posts}: {posts: Post[]}) {
-  return (
-    <Flex direction="column">
-      <Heading as="h2">Latest articles</Heading>
-
-      <Divider marginTop="5" />
-
-      <Wrap spacing="30px" marginTop="5" overflow="unset">
-        {posts.map((post) => (
-          <WrapItem
-            flexGrow={1}
-            alignItems="stretch"
-            maxW={{base: '100%', sm: '45%', lg: '30%'}}
-            key={post.id}
-          >
-            <AtricleCard post={post} />
-          </WrapItem>
-        ))}
-      </Wrap>
-    </Flex>
   )
 }

@@ -9,7 +9,7 @@ import {
 } from '@chakra-ui/react'
 import {useParams} from 'react-router-dom'
 import useSWR from 'swr'
-import {PostMeta} from '../components/postAuthorMeta'
+import {ArticleMeta} from '../components/articleMeta'
 import {coverUrlById} from '../utils/mockUrls'
 
 export default function PostPage() {
@@ -51,10 +51,7 @@ export default function PostPage() {
         ))}
       </Flex>
 
-      <PostMeta //
-        blog={post.blog}
-        date={new Date(post.publishedAt)}
-      />
+      <ArticleMeta {...post} />
     </Container>
   )
 }

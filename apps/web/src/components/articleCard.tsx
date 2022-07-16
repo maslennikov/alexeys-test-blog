@@ -12,15 +12,20 @@ import {
 } from '@chakra-ui/react'
 import {Post} from '../types'
 import {coverUrlById} from '../utils/mockUrls'
-import {PostMeta} from './postAuthorMeta'
+import {ArticleMeta} from './articleMeta'
 import {Link as RouterLink} from 'react-router-dom'
 
 type PostCardProps = {
   post: Post
+  admin?: boolean
 }
-export function AtricleCard({post}: PostCardProps) {
+export function AtricleCard({post, admin}: PostCardProps) {
+  const postUrl = admin //
+    ? `/admin/edit/${post.id}`
+    : `/posts/${post.id}`
+
   return (
-    <Center>
+    <Center flexGrow="1">
       <LinkBox
         as={Flex}
         direction="column"
@@ -53,29 +58,26 @@ export function AtricleCard({post}: PostCardProps) {
         </Box>
         <Stack flexGrow="1">
           <Text
-            color={'green.500'}
+            color={post.publishedAt ? 'green.500' : 'orange.500'}
             textTransform={'uppercase'}
             fontWeight={800}
             fontSize={'sm'}
             letterSpacing={1.1}
           >
-            Blog
+            {post.publishedAt ? 'Blog' : 'Draft'}
           </Text>
           <Heading
             color={useColorModeValue('gray.700', 'white')}
             fontSize={'2xl'}
             fontFamily={'body'}
           >
-            <LinkOverlay as={RouterLink} to={`/posts/${post.id}`}>
+            <LinkOverlay as={RouterLink} to={postUrl}>
               {post.title}
             </LinkOverlay>
           </Heading>
           <Text color={'gray.500'}>{post.summary}</Text>
         </Stack>
-        <PostMeta //
-          blog={post.blog}
-          date={new Date(post.publishedAt)}
-        />
+        <ArticleMeta {...post} />
       </LinkBox>
     </Center>
   )

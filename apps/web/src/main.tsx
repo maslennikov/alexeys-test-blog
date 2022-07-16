@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom/client'
 import Router from './routes'
 import {ChakraProvider} from '@chakra-ui/react'
 import {SWRConfig} from 'swr'
-import {fetcher} from './api'
+import {fetcher} from './api/fetcher'
 import {AuthProvider} from './utils/authContext'
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(

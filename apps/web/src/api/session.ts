@@ -13,7 +13,7 @@ export function setUser(user: UserRecord | null) {
   }
 }
 
-export function user(): UserRecord | null {
+export function getUser(): UserRecord | null {
   const data = sessionStorage.getItem('user')
   try {
     if (!data) return null

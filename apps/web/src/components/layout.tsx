@@ -11,14 +11,13 @@ import {
   Text,
 } from '@chakra-ui/react'
 import React from 'react'
-import {Link as RouterLink, Outlet} from 'react-router-dom'
+import {Link as RouterLink, Outlet, useNavigate} from 'react-router-dom'
 import {AuthContext} from '../utils/authContext'
 import {faceUrlById} from '../utils/mockUrls'
 import Footer from './footer'
+import {MdAdd} from 'react-icons/md'
 
 export function Layout() {
-  const {user, setUser} = React.useContext(AuthContext)
-
   return (
     <Flex direction="column">
       <Container
@@ -40,43 +39,75 @@ export function Layout() {
             </Text>
           </Link>
           <Flex grow={1} />
-          {user ? (
-            <Menu>
-              <MenuButton
-                as={Avatar}
-                size="sm"
-                src={faceUrlById(user.blogId)}
-                _hover={{cursor: 'pointer'}}
-              />
-              <MenuList>
-                <MenuItem onClick={() => setUser(null)}>Log out</MenuItem>
-              </MenuList>
-            </Menu>
-          ) : (
-            <Flex gap={8}>
-              <Button
-                as={RouterLink}
-                to="/login"
-                variant="link"
-                fontSize={'sm'}
-                fontWeight={400}
-              >
-                Log In
-              </Button>
-              <Button
-                display={{base: 'none', md: 'inline-flex'}}
-                fontSize={'sm'}
-                fontWeight={600}
-                colorScheme="orange"
-              >
-                Sign Up
-              </Button>
-            </Flex>
-          )}
+          <Actions />
         </Flex>
         <Outlet />
       </Container>
       <Footer />
+    </Flex>
+  )
+}
+
+function Actions() {
+  const {user, setUser} = React.useContext(AuthContext)
+  const navigate = useNavigate()
+
+  const onLogout = () => {
+    setUser(null)
+    navigate('/')
+  }
+
+  return (
+    <Flex gap={8}>
+      {user ? (
+        <>
+          <Button
+            variant={'solid'}
+            colorScheme={'green'}
+            size={'sm'}
+            leftIcon={<MdAdd />}
+          >
+            Write a post
+          </Button>
+          <Menu>
+            <MenuButton
+              as={Avatar}
+              size="sm"
+              src={faceUrlById(user.blogId)}
+              _hover={{cursor: 'pointer'}}
+            />
+            <MenuList>
+              <MenuItem onClick={() => navigate('/admin')}>
+                Manage my blog
+              </MenuItem>
+              <MenuItem color="red.600" onClick={onLogout}>
+                Log out
+              </MenuItem>
+            </MenuList>
+          </Menu>
+        </>
+      ) : (
+        <>
+          <Button
+            as={RouterLink}
+            // navigate to /admin instead of /login to land user to their admin page after logged in
+            to="/admin"
+            variant="link"
+            fontSize={'sm'}
+            fontWeight={400}
+          >
+            Log In
+          </Button>
+          <Button
+            display={{base: 'none', md: 'inline-flex'}}
+            fontSize={'sm'}
+            fontWeight={600}
+            colorScheme="orange"
+          >
+            Sign Up
+          </Button>
+        </>
+      )}
     </Flex>
   )
 }

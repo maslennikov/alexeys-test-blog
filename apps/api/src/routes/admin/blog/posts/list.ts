@@ -45,13 +45,14 @@ const route: FastifyPluginAsync = async (fastify, opts): Promise<void> => {
       where: {blogId},
       take: take || undefined,
       skip: skip || undefined,
-      orderBy: [{createdAt: 'desc'}],
+      orderBy: [{publishedAt: 'desc'}, {createdAt: 'desc'}],
       select: {
         id: true,
         title: true,
         summary: true,
         createdAt: true,
         publishedAt: true,
+        blog: true,
       },
     })
     return {total: posts.length, posts}

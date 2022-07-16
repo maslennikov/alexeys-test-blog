@@ -1,6 +1,6 @@
 import React from 'react'
 import {Navigate, useLocation} from 'react-router-dom'
-import {AuthError} from '../api'
+import {AuthError} from '../api/fetcher'
 import * as session from '../api/session'
 
 type AuthContextType = {
@@ -14,7 +14,7 @@ export const AuthContext = React.createContext<AuthContextType>({
 })
 
 export function AuthProvider({children}: {children: React.ReactNode}) {
-  const [user, setUser] = React.useState(session.user())
+  const [user, setUser] = React.useState(session.getUser())
 
   React.useEffect(() => {
     session.setUser(user)

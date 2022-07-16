@@ -7,9 +7,7 @@ import {
   FormControl,
   FormLabel,
   Input,
-  Checkbox,
   Stack,
-  Link,
   Button,
   Heading,
   Text,
@@ -17,7 +15,7 @@ import {
   FormErrorMessage,
 } from '@chakra-ui/react'
 import {UserRecord} from '../api/session'
-import {authenticate, AuthError} from '../api'
+import {authenticate} from '../api'
 
 export default function LoginPage() {
   const {user, setUser} = React.useContext(AuthContext)
@@ -45,10 +43,7 @@ export default function LoginPage() {
       user = await authenticate(formProps.email, formProps.password)
     } catch (e) {
       console.log(e)
-      if (e instanceof AuthError) {
-        setError('Could not authenticate')
-        return
-      }
+      setError('Could not authenticate')
     } finally {
       setSubmitting(false)
     }

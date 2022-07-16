@@ -1,6 +1,11 @@
 # Alexey's Test Blogging Hub
 This is a test project developed as a part of job search.
 
+## Explore
+- app: https://alexeys-test-blog.vercel.app/
+- api: https://powerful-forest-69756.herokuapp.com/documentation
+
+
 ## Develop locally
 
 Make sure you have sufficient dev environment:

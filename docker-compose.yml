@@ -7,6 +7,9 @@ services:
       args:
         SCOPE: "@alex-test-blog/api"
     restart: always
+    env_file:
+      - ./apps/api/.env
+      - ./apps/api/.env.docker
     ports:
       - 5000:5000
     depends_on:

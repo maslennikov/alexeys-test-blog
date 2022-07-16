@@ -1,0 +1,13 @@
+.git
+
+**/node_modules
+.pnp.*
+.yarn/cache
+.yarn/install-state.gz
+
+**/.next
+**/out
+**/build
+**/dist
+
+**/prisma/generated

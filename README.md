@@ -23,5 +23,6 @@ pnpm -r dev
 
 If all commands have run successfully, you'll have following endpoints accessible:
 - api: `http://localhost:5000`
+- api status check: `http://localhost:5000/_app/status`
 - api docs: `http://localhost:5000/documentation`
 - webapp: `http://localhost:5173`

@@ -8,6 +8,6 @@ function env(keyname: string, fallback?: any) {
 }
 
 export default Object.freeze({
-  port: Number(env('PORT'), 5000),
+  port: Number(env('PORT', 5000)),
   jwtSecret: env('JWT_SECRET'),
 })

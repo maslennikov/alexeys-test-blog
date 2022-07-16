@@ -14,7 +14,7 @@ import {ReactNode} from 'react'
 const Logo = (props: any) => {
   return (
     <Text as="b" fontSize="md">
-      Welbex Test Blogging Hub
+      Alexey's Test Blogging Hub
     </Text>
   )
 }

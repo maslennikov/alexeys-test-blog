@@ -8,7 +8,7 @@ const swagger: FastifyPluginAsync = fp(async (fastify) => {
     routePrefix: '/documentation',
     openapi: {
       info: {
-        title: 'Welbex Test Blog',
+        title: "Alexey's Test Blog API",
         description:
           'API schema covers reader and publisher sections, as well as auth',
         version,

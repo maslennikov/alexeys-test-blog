@@ -35,7 +35,7 @@ export function Layout() {
               bgGradient="linear(to-r, #f12711, #f5af19)"
               bgClip="text"
             >
-              Welbex Test Blogging Hub
+              Alexey's Test Blogging Hub
             </Text>
           </Link>
           <Flex grow={1} />

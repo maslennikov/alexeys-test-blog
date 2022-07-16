@@ -1,16 +1,8 @@
-import {
-  Heading,
-  Text,
-  Divider,
-  Container,
-  VStack,
-  Flex,
-  Button,
-} from '@chakra-ui/react'
+import {Heading, Text, Divider, VStack, Flex} from '@chakra-ui/react'
 import useSWR from 'swr'
 import {FeaturedArticle} from '../components/featuredArticle'
 import {ArticlesFeed} from '../components/articlesFeed'
-import {Link as RouterLink} from 'react-router-dom'
+import {CTA} from '../components/cta'
 
 export default function FeedPage() {
   const {data, error} = useSWR('/posts')
@@ -30,7 +22,10 @@ export default function FeedPage() {
         <ArticlesFeed posts={posts.slice(1)} />
       </Flex>
 
-      <CTA label="Create more amazing content and connect with your audience" />
+      <CTA
+        label="Create more amazing content and connect with your audience"
+        link="/admin?newpost"
+      />
 
       <VStack paddingTop="40px" spacing="2" alignItems="flex-start">
         <Heading as="h2">What we write about</Heading>
@@ -53,26 +48,9 @@ export default function FeedPage() {
       </VStack>
     </>
   ) : (
-    <CTA label="Create your first article on this platform" />
-  )
-}
-
-function CTA({label}) {
-  return (
-    <Container
-      rounded="md"
-      centerContent
-      p={10}
-      bgGradient="linear(to-tr, gray.50, gray.100, gray.50)"
-    >
-      <Button
-        as={RouterLink}
-        to="/admin?newpost"
-        variant="ghost"
-        color="gray.500"
-      >
-        {label}
-      </Button>
-    </Container>
+    <CTA
+      label="Create your first article on this platform"
+      link="/admin?newpost"
+    />
   )
 }

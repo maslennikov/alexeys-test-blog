@@ -49,7 +49,7 @@ export default function PostPage({preview}: {preview?: boolean}) {
     <>
       <Container
         maxW={'2xl'}
-        p="12"
+        p={{base: 0, md: 12}}
         gap={6}
         display="flex"
         flexDirection="column"

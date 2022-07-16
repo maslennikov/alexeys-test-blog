@@ -19,16 +19,34 @@ import {MdAdd} from 'react-icons/md'
 
 export function Layout() {
   return (
-    <Flex direction="column" minH="100vh">
+    <Flex
+      direction="column"
+      minH="100vh"
+      w="100vw"
+      maxW="100vw"
+      minW="370px"
+      overflowX="hidden"
+    >
       <Container
-        maxW={'7xl'}
+        maxW={'1000px'}
         px={6}
         gap={10}
         display="flex"
         flexDirection="column"
       >
-        <Flex h={20} align="center">
-          <Link as={RouterLink} to="/" _hover={{textDecoration: 'none'}}>
+        <Flex
+          align="center"
+          gap={2}
+          direction={{base: 'column', md: 'row'}}
+          h={{base: '100px', md: '80px'}}
+          pt={{base: 4, md: 0}}
+        >
+          <Link
+            as={RouterLink}
+            to="/"
+            _hover={{textDecoration: 'none'}}
+            minW="150px"
+          >
             <Text
               as="b"
               fontSize="xl"

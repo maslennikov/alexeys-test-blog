@@ -66,6 +66,7 @@ function Actions() {
             colorScheme={'green'}
             size={'sm'}
             leftIcon={<MdAdd />}
+            onClick={() => navigate('/admin?newpost')}
           >
             Write a post
           </Button>

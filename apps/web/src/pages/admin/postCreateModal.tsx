@@ -22,7 +22,7 @@ export default function PostCreateModal() {
         method: 'POST',
         body: JSON.stringify(data),
       })
-      navigate(`/posts/${post.id}`)
+      navigate(`/admin/posts/${post.id}`)
     },
     [navigate]
   )

@@ -34,7 +34,7 @@ export default function PostEditModal() {
         method: 'PUT',
         body: JSON.stringify(data),
       })
-      navigate(`/posts/${params.id}`)
+      navigate(`..`)
     },
     [params]
   )
@@ -47,7 +47,7 @@ export default function PostEditModal() {
   const {post} = data
 
   return (
-    <Modal isOpen onClose={() => navigate('/admin')}>
+    <Modal isOpen onClose={() => navigate('..')}>
       <ModalOverlay />
       <ModalContent>
         <ModalHeader>Edit Article</ModalHeader>

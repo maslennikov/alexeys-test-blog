@@ -21,7 +21,7 @@ type PostCardProps = {
 }
 export function AtricleCard({post, admin}: PostCardProps) {
   const postUrl = admin //
-    ? `/admin/edit/${post.id}`
+    ? `/admin/posts/${post.id}`
     : `/posts/${post.id}`
 
   return (

@@ -7,12 +7,14 @@ import {
   Button,
 } from '@chakra-ui/react'
 import React from 'react'
-import {Link as RouterLink, Outlet} from 'react-router-dom'
+import {Link as RouterLink, Outlet, useSearchParams} from 'react-router-dom'
 import useSWR from 'swr'
 import {ArticlesFeed} from '../../components/articlesFeed'
 import {AuthContext} from '../../utils/authContext'
+import PostCreateModal from './postCreateModal'
 
 export default function AdminPostsPage() {
+  const [search] = useSearchParams()
   const {user} = React.useContext(AuthContext)
   const {data, error} = useSWR(`/admin/blog/${user?.blogId}/posts?take=30`)
 
@@ -37,7 +39,7 @@ export default function AdminPostsPage() {
           >
             <Button
               as={RouterLink}
-              to="/admin/new"
+              to="/admin?newpost"
               variant="ghost"
               color="gray.500"
             >
@@ -47,8 +49,7 @@ export default function AdminPostsPage() {
         )}
       </Flex>
 
-      {/* outlet for nested modals triggered by router */}
-      <Outlet />
+      {search.has('newpost') && <PostCreateModal />}
     </>
   )
 }

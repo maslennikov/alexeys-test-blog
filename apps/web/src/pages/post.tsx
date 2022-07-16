@@ -34,6 +34,7 @@ export default function PostPage({preview}: {preview?: boolean}) {
       body: JSON.stringify({published: !post.publishedAt}),
     })
     mutate()
+    navigate(`/admin/posts/${params.id}`)
   }, [post, mutate])
 
   if (error)

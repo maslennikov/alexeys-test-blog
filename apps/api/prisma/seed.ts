@@ -1,4 +1,4 @@
-import {Prisma, PrismaClient} from '@prisma/client'
+import {Prisma, PrismaClient} from './generated/client'
 import {hash} from '../src/utils/password'
 import {faker} from '@faker-js/faker'
 

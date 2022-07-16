@@ -4,7 +4,8 @@
   "description": "",
   "main": "dist/index.js",
   "files": [
-    "dist"
+    "dist",
+    "prisma"
   ],
   "nodemonConfig": {
     "watch": [
@@ -16,7 +17,7 @@
     "seed": "ts-node --transpile-only prisma/seed.ts"
   },
   "scripts": {
-    "build": "prisma generate && esbuild src/index.ts --bundle --external:./node_modules/* --outfile=dist/index.js --platform=node --target=node18 --format=cjs",
+    "build": "prisma generate && esbuild src/index.ts --bundle --external:./node_modules/* --external:./prisma/generated/* --outfile=dist/index.js --platform=node --target=node18 --format=cjs",
     "start": "node dist/index.js",
     "dev": "pnpm build && concurrently -k -p '[{name}]' -n 'Build,App' -c 'yellow.bold,cyan.bold' 'pnpm:watch-build' 'pnpm:watch-start'",
     "watch-build": "pnpm build --watch",

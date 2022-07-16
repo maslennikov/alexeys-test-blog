@@ -102,7 +102,6 @@ function Actions() {
           <Button
             as={RouterLink}
             to="/signup"
-            display={{base: 'none', md: 'inline-flex'}}
             fontSize={'sm'}
             fontWeight={600}
             colorScheme="orange"

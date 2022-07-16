@@ -23,8 +23,11 @@ const route: FastifyPluginAsync = async (fastify, opts): Promise<void> => {
   }>('/:id', {schema}, async (req, rep) => {
     const {id} = req.params
 
-    const post = await fastify.prisma.post.findUnique({
-      where: {id},
+    const post = await fastify.prisma.post.findFirst({
+      where: {
+        id,
+        NOT: {publishedAt: null},
+      },
       include: {blog: true},
     })
     return post ? {post} : rep.notFound()

@@ -6,7 +6,8 @@ import PostPage from './pages/post'
 import LoginPage from './pages/login'
 import SignupPage from './pages/signup'
 import AdminPostsPage from './pages/admin/posts'
-import PostEditPage from './pages/admin/postEditModal'
+import PostEditModal from './pages/admin/postEditModal'
+import PostCreateModal from './pages/admin/postCreateModal'
 
 export default function Router() {
   return (
@@ -23,7 +24,8 @@ export default function Router() {
               </RequireAuth>
             }
           >
-            <Route path="edit/:id" element={<PostEditPage />} />
+            <Route path="new" element={<PostCreateModal />} />
+            <Route path="edit/:id" element={<PostEditModal />} />
           </Route>
         </Route>
         <Route path="/login" element={<LoginPage />} />

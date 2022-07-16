@@ -38,6 +38,7 @@ const route: FastifyPluginAsync = async (fastify, opts): Promise<void> => {
 
     const post = await fastify.prisma.post.findUnique({
       where: {id},
+      include: {blog: true},
     })
 
     return {post}

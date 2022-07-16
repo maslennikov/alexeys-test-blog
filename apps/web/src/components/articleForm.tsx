@@ -47,7 +47,7 @@ export function ArticleForm({data, onPublishToggle, onSubmit}: IFormProps) {
 
   return (
     <form onSubmit={handleSubmit}>
-      <Stack spacing={4}>
+      <Stack spacing={4} pb={4}>
         <FormControl isReadOnly={readonly}>
           <FormLabel>Title</FormLabel>
           <Input name="title" isRequired defaultValue={data?.title} />
@@ -77,7 +77,7 @@ export function ArticleForm({data, onPublishToggle, onSubmit}: IFormProps) {
           >
             Save
           </Button>
-          {onPublishToggle && data?.publishedAt && (
+          {onPublishToggle && !data?.publishedAt && (
             <Button
               variant="ghost"
               colorScheme="green"
@@ -88,7 +88,7 @@ export function ArticleForm({data, onPublishToggle, onSubmit}: IFormProps) {
               Publish
             </Button>
           )}
-          {onPublishToggle && !data?.publishedAt && (
+          {onPublishToggle && data?.publishedAt && (
             <Button
               variant="ghost"
               colorScheme="red"

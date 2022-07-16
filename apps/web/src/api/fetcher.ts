@@ -2,6 +2,7 @@ import {API_HOST} from './config'
 import {getUser} from './session'
 
 export class AuthError extends Error {}
+export class NotFoundError extends Error {}
 
 export const fetcher = async (resource: string, init: RequestInit) => {
   const url = `${API_HOST}${resource}`
@@ -23,6 +24,7 @@ export const fetcher = async (resource: string, init: RequestInit) => {
     const errorMessage = errorData?.message || res.statusText
 
     console.error('Fetch error:', res, errorData)
+    if (res.status == 404) throw new NotFoundError()
     if (res.status == 401) throw new AuthError(errorMessage)
     throw new Error(errorMessage)
   }

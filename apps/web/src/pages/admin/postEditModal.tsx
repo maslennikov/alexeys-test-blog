@@ -15,7 +15,7 @@ import useSWR from 'swr'
 import {ArticleForm} from '../../components/articleForm'
 import {fetcher} from '../../api/fetcher'
 
-export default function PostEditPage() {
+export default function PostEditModal() {
   const params = useParams()
   const navigate = useNavigate()
   const {user} = React.useContext(AuthContext)

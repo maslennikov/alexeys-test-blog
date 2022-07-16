@@ -11,6 +11,7 @@ import {
 import React from 'react'
 import {useNavigate, useParams} from 'react-router-dom'
 import useSWR from 'swr'
+import {NotFoundError} from '../api/fetcher'
 import {ArticleMeta} from '../components/articleMeta'
 import {AuthContext} from '../utils/authContext'
 import {coverUrlById} from '../utils/mockUrls'
@@ -19,9 +20,17 @@ export default function PostPage() {
   const params = useParams()
   const navigate = useNavigate()
   const {user} = React.useContext(AuthContext)
-  const {data, error} = useSWR(`/posts/${params.id}`)
+  const url = user
+    ? `/admin/blog/${user.blogId}/posts/${params.id}`
+    : `/posts/${params.id}`
+  const {data, error} = useSWR(url)
 
-  if (error) return <div>failed to load</div>
+  if (error)
+    return error instanceof NotFoundError ? (
+      <div>Article not found</div>
+    ) : (
+      <div>failed to load</div>
+    )
   if (!data) return <div>loading...</div>
 
   const {post} = data

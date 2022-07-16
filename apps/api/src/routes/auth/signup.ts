@@ -6,12 +6,14 @@ import {userResponse} from '../schema'
 export interface IBody {
   password: string
   email: string
+  name: string
 }
 
 export const schema: FastifySchema = {
   body: S.object() //
     .prop('password', S.string().required())
-    .prop('email', S.string().required()),
+    .prop('email', S.string().required())
+    .prop('name', S.string().required()),
 
   response: {
     200: S.object().prop('user', userResponse),
@@ -20,7 +22,7 @@ export const schema: FastifySchema = {
   tags: ['auth'],
   summary: 'Register a user',
   description: `
-  User will be created with a default blog configuration.
+  User will be created with a blog instance named by provided name.
 
   **JWT will not be issued automatically, use \`login\` call with same credentials**`,
 }
@@ -29,7 +31,7 @@ const route: FastifyPluginAsync = async (fastify, opts): Promise<void> => {
   fastify.post<{
     Body: IBody
   }>('/signup', {schema}, async (req, rep) => {
-    const {email, password} = req.body
+    const {email, password, name} = req.body
 
     const exists = await fastify.prisma.user.count({
       where: {email},
@@ -41,9 +43,7 @@ const route: FastifyPluginAsync = async (fastify, opts): Promise<void> => {
         email,
         pwdHash: await hash(password),
         blog: {
-          create: {
-            name: 'My Blog',
-          },
+          create: {name},
         },
       },
       select: {

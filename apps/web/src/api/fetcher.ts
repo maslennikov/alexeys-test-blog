@@ -19,9 +19,12 @@ export const fetcher = async (resource: string, init: RequestInit) => {
     headers,
   })
   if (!res.ok) {
-    console.error('Fetch error:', res)
-    if (res.status == 401) throw new AuthError(res.statusText)
-    throw new Error(res.statusText)
+    const errorData = await res.json()
+    const errorMessage = errorData?.message || res.statusText
+
+    console.error('Fetch error:', res, errorData)
+    if (res.status == 401) throw new AuthError(errorMessage)
+    throw new Error(errorMessage)
   }
   return res.json()
 }

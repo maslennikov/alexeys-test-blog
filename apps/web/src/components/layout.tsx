@@ -99,6 +99,8 @@ function Actions() {
             Log In
           </Button>
           <Button
+            as={RouterLink}
+            to="/signup"
             display={{base: 'none', md: 'inline-flex'}}
             fontSize={'sm'}
             fontWeight={600}

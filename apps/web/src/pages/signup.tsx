@@ -15,16 +15,15 @@ import {
   FormErrorMessage,
 } from '@chakra-ui/react'
 import {UserRecord} from '../api/session'
-import {authenticate} from '../api/auth'
+import {signup} from '../api/auth'
 
-export default function LoginPage() {
+export default function SignupPage() {
   const {user, setUser} = React.useContext(AuthContext)
   const [submitting, setSubmitting] = React.useState(false)
   const [error, setError] = React.useState('')
 
   const navigate = useNavigate()
-  const location = useLocation() as any
-  const redirectTo = location.state?.from?.pathname || '/'
+  const redirectTo = '/admin'
 
   React.useEffect(() => {
     if (user) navigate(redirectTo, {replace: true})
@@ -40,10 +39,10 @@ export default function LoginPage() {
 
     let user: UserRecord | undefined
     try {
-      user = await authenticate(formProps.email, formProps.password)
-    } catch (e) {
+      user = await signup(formProps.email, formProps.password, formProps.name)
+    } catch (e: any) {
       console.log(e)
-      setError('Could not authenticate')
+      setError(`Could not sign up: ${e.message}`)
     } finally {
       setSubmitting(false)
     }
@@ -60,7 +59,7 @@ export default function LoginPage() {
     >
       <Stack spacing={8} mx={'auto'} maxW={'md'} w="100%" py={12} px={6}>
         <Stack align={'center'}>
-          <Heading fontSize={'4xl'}>Log in to your account</Heading>
+          <Heading fontSize={'4xl'}>Create account</Heading>
           <Text fontSize={'lg'} color={'gray.600'}>
             to start publishing with blogger ✌️
           </Text>
@@ -81,24 +80,20 @@ export default function LoginPage() {
                 <FormLabel>Password</FormLabel>
                 <Input name="password" type="password" isRequired />
               </FormControl>
+              <FormControl>
+                <FormLabel>Blog name</FormLabel>
+                <Input name="name" isRequired />
+              </FormControl>
               <FormControl isInvalid={!!error}>
                 <FormErrorMessage>{error}</FormErrorMessage>
               </FormControl>
               <Stack spacing={10} pt={4}>
-                {/* <Stack
-                  direction={{base: 'column', sm: 'row'}}
-                  align={'start'}
-                  justify={'space-between'}
-                >
-                  <Checkbox>Remember me</Checkbox>
-                  <Link color={'blue.400'}>Forgot password?</Link>
-                </Stack> */}
                 <Button
                   isLoading={submitting}
                   colorScheme="orange"
                   type="submit"
                 >
-                  Log in
+                  Sign up
                 </Button>
               </Stack>
             </Stack>

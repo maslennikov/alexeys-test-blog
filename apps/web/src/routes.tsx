@@ -4,6 +4,7 @@ import {Layout} from './components/layout'
 import FeedPage from './pages/feed'
 import PostPage from './pages/post'
 import LoginPage from './pages/login'
+import SignupPage from './pages/signup'
 import AdminPostsPage from './pages/admin/posts'
 import PostEditPage from './pages/admin/postEditModal'
 
@@ -26,6 +27,7 @@ export default function Router() {
           </Route>
         </Route>
         <Route path="/login" element={<LoginPage />} />
+        <Route path="/signup" element={<SignupPage />} />
       </Routes>
     </BrowserRouter>
   )

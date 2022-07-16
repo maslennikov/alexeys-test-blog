@@ -20,3 +20,17 @@ export async function authenticate(
     jwt: data.jwt,
   }
 }
+
+
+export async function signup(
+  email: string,
+  password: string,
+  name: string
+): Promise<UserRecord> {
+  await fetcher(`/auth/signup`, {
+    method: 'POST',
+    body: JSON.stringify({email, password, name}),
+  })
+
+  return authenticate(email, password)
+}

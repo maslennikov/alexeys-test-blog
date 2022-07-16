@@ -25,11 +25,11 @@ const route: FastifyPluginAsync = async (fastify, opts): Promise<void> => {
     Body: IBody
   }>('/:id', {schema}, async (req, rep) => {
     const {id} = req.params
-    const {title, content} = req.body
+    const {title, summary, content} = req.body
 
     const post = await fastify.prisma.post.update({
       where: {id},
-      data: {title, content},
+      data: {title, summary, content},
     })
 
     return {post}

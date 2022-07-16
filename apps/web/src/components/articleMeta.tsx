@@ -14,7 +14,7 @@ export const ArticleMeta = ({blog, publishedAt}: IProps) => {
   )
 
   return (
-    <Stack mt={6} direction={'row'} spacing={4} align={'center'}>
+    <Stack direction={'row'} spacing={4} align={'center'}>
       <Avatar src={faceUrlById(blog.id)} />
       <Stack direction={'column'} spacing={0} fontSize={'sm'}>
         <Text fontWeight={600}>{blog.name}</Text>

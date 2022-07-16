@@ -84,6 +84,7 @@ export function FeaturedArticle({post}: FeaturedArticleProps) {
         <Text
           as="p"
           marginTop="2"
+          mb="6"
           color={useColorModeValue('gray.700', 'gray.200')}
           fontSize="lg"
         >

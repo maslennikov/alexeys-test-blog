@@ -1,12 +1,7 @@
-import {API_HOST} from './config'
 import jwtDecode from 'jwt-decode'
 import {UserRecord} from './session'
 import {fetcher} from './fetcher'
 
-/**
- * Fetches access & refresh token but does not persist them
- * as default values for api calls. For that purpose @see `setUser`
- */
 export async function authenticate(
   email: string,
   password: string

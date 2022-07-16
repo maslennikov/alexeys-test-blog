@@ -8,6 +8,7 @@ export interface IParams {
 
 export interface IBody {
   title: string
+  summary: string
   content: string
 }
 
@@ -15,8 +16,8 @@ export const schema: FastifySchema = {
   params: S.object().prop('blogId', S.number()),
 
   body: postResponse
-    .only(['title', 'content']) //
-    .required(['title', 'content']),
+    .only(['title', 'summary', 'content'])
+    .required(['title', 'summary', 'content']),
 
   response: {
     200: S.object().prop('post', postResponse),
@@ -37,11 +38,12 @@ const route: FastifyPluginAsync = async (fastify, opts): Promise<void> => {
     Body: IBody
   }>('/', {schema}, async (req, rep) => {
     const {blogId} = req.params
-    const {title, content} = req.body
+    const {title, summary, content} = req.body
 
     const post = await fastify.prisma.post.create({
       data: {
         title,
+        summary,
         content,
         blog: {connect: {id: blogId}},
       },

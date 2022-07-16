@@ -15,7 +15,7 @@ import {
   FormErrorMessage,
 } from '@chakra-ui/react'
 import {UserRecord} from '../api/session'
-import {authenticate} from '../api'
+import {authenticate} from '../api/auth'
 
 export default function LoginPage() {
   const {user, setUser} = React.useContext(AuthContext)

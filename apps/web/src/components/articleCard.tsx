@@ -56,7 +56,7 @@ export function AtricleCard({post, admin}: PostCardProps) {
             height="100%"
           />
         </Box>
-        <Stack flexGrow="1">
+        <Stack flexGrow="1" mb="6">
           <Text
             color={post.publishedAt ? 'green.500' : 'orange.500'}
             textTransform={'uppercase'}

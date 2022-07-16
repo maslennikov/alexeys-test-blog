@@ -1,7 +1,7 @@
 import {Heading, Divider, WrapItem, Flex} from '@chakra-ui/react'
 import React from 'react'
+import {Outlet} from 'react-router-dom'
 import useSWR from 'swr'
-import {AtricleCard} from '../../components/articleCard'
 import {ArticlesFeed} from '../../components/articlesFeed'
 import {AuthContext} from '../../utils/authContext'
 
@@ -21,6 +21,9 @@ export default function AdminPostsPage() {
         <Divider my="2" />
         <ArticlesFeed posts={posts} admin />
       </Flex>
+
+      {/* outlet for nested modals triggered by router */}
+      <Outlet />
     </>
   )
 }

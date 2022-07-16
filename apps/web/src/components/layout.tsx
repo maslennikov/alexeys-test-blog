@@ -19,7 +19,7 @@ import {MdAdd} from 'react-icons/md'
 
 export function Layout() {
   return (
-    <Flex direction="column">
+    <Flex direction="column" minH="100vh">
       <Container
         maxW={'7xl'}
         px={6}

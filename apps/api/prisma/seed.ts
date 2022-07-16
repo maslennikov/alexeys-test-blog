@@ -41,7 +41,7 @@ const userData: Prisma.UserCreateInput[] = [
               '{{hacker.ingverb}} {{hacker.adjective}} {{hacker.noun}}'
             ),
             summary: faker.hacker.phrase(),
-            content: faker.lorem.paragraphs(),
+            content: faker.lorem.paragraphs(3, '\n\n'),
             publishedAt: new Date(date),
           })),
         },
@@ -58,7 +58,7 @@ const userData: Prisma.UserCreateInput[] = [
           create: Array.from(Array(10)).map((_, i) => ({
             title: faker.commerce.productName(),
             summary: faker.commerce.productDescription(),
-            content: faker.lorem.paragraphs(),
+            content: faker.lorem.paragraphs(3, '\n\n'),
             publishedAt: new Date(
               `2022-01-${(i + 1).toString().padStart(2, '0')}`
             ),

@@ -21,7 +21,9 @@ export default function PostEditModal() {
   const {user} = React.useContext(AuthContext)
   const [dataStamp, setDataStamp] = React.useState(0)
 
-  const {data, error} = useSWR(`/admin/blog/${user?.blogId}/posts/${params.id}`)
+  const {data, error, mutate} = useSWR(
+    `/admin/blog/${user?.blogId}/posts/${params.id}`
+  )
 
   React.useEffect(() => {
     // force rerender form because it's unmanaged
@@ -34,12 +36,11 @@ export default function PostEditModal() {
         method: 'PUT',
         body: JSON.stringify(data),
       })
+      mutate()
       navigate(`..`)
     },
     [params]
   )
-
-  const onPublish = async () => {}
 
   if (error) return <div>failed to load</div>
   if (!data) return <div>loading...</div>
@@ -58,7 +59,6 @@ export default function PostEditModal() {
             key={dataStamp}
             data={post}
             onSubmit={onSubmit}
-            onPublishToggle={onPublish}
           />
         </ModalBody>
       </ModalContent>

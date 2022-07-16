@@ -15,12 +15,10 @@ type IFormProps = {
   onSubmit: (
     fields: Pick<Post, 'title' | 'summary' | 'content'>
   ) => Promise<void>
-  onPublishToggle?: () => Promise<void>
 }
 
-export function ArticleForm({data, onPublishToggle, onSubmit}: IFormProps) {
+export function ArticleForm({data, onSubmit}: IFormProps) {
   const [submitting, setSubmitting] = React.useState(false)
-  const [publishing, setPublishing] = React.useState(false)
   const [error, setError] = React.useState('')
 
   const handleSubmit = React.useCallback(async (e) => {
@@ -41,9 +39,7 @@ export function ArticleForm({data, onPublishToggle, onSubmit}: IFormProps) {
     }
   }, [])
 
-  const handlePublish = () => {}
-
-  const readonly = publishing || submitting
+  const readonly = submitting
 
   return (
     <form onSubmit={handleSubmit}>
@@ -69,36 +65,9 @@ export function ArticleForm({data, onPublishToggle, onSubmit}: IFormProps) {
           <FormErrorMessage>{error}</FormErrorMessage>
         </FormControl>
         <Stack spacing={4} pt={4}>
-          <Button
-            isLoading={submitting}
-            isDisabled={publishing}
-            colorScheme="orange"
-            type="submit"
-          >
+          <Button isLoading={submitting} colorScheme="orange" type="submit">
             Save
           </Button>
-          {onPublishToggle && !data?.publishedAt && (
-            <Button
-              variant="ghost"
-              colorScheme="green"
-              isLoading={publishing}
-              isDisabled={submitting}
-              onClick={handlePublish}
-            >
-              Publish
-            </Button>
-          )}
-          {onPublishToggle && data?.publishedAt && (
-            <Button
-              variant="ghost"
-              colorScheme="red"
-              isLoading={publishing}
-              isDisabled={submitting}
-              onClick={handlePublish}
-            >
-              Unpublish
-            </Button>
-          )}
         </Stack>
       </Stack>
     </form>

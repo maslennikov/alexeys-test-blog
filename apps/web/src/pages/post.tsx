@@ -11,7 +11,7 @@ import {
 import React from 'react'
 import {Outlet, useNavigate, useParams} from 'react-router-dom'
 import useSWR from 'swr'
-import {NotFoundError} from '../api/fetcher'
+import {fetcher, NotFoundError} from '../api/fetcher'
 import {ArticleMeta} from '../components/articleMeta'
 import {AuthContext} from '../utils/authContext'
 import {coverUrlById} from '../utils/mockUrls'
@@ -25,7 +25,16 @@ export default function PostPage({preview}: {preview?: boolean}) {
     ? `/admin/blog/${user?.blogId}/posts/${params.id}`
     : `/posts/${params.id}`
 
-  const {data, error} = useSWR(url)
+  const {data, error, mutate} = useSWR(url)
+  const post = data?.post
+
+  const onTogglePublish = React.useCallback(async () => {
+    await fetcher(`/admin/blog/${user?.blogId}/posts/publish/${params.id}`, {
+      method: 'PUT',
+      body: JSON.stringify({published: !post.publishedAt}),
+    })
+    mutate()
+  }, [post, mutate])
 
   if (error)
     return error instanceof NotFoundError ? (
@@ -34,8 +43,6 @@ export default function PostPage({preview}: {preview?: boolean}) {
       <div>failed to load</div>
     )
   if (!data) return <div>loading...</div>
-
-  const {post} = data
 
   return (
     <>
@@ -65,9 +72,18 @@ export default function PostPage({preview}: {preview?: boolean}) {
         <Flex gap={6} align="top" justify="space-between">
           <ArticleMeta {...post} />
           {user?.blogId == post.blog.id && (
-            <Button variant="outline" onClick={() => navigate(`edit`)}>
-              Edit
-            </Button>
+            <Flex gap={6}>
+              <Button variant="outline" onClick={() => navigate(`edit`)}>
+                Edit
+              </Button>
+              <Button
+                variant="outline"
+                colorScheme={post.publishedAt ? 'red' : 'green'}
+                onClick={onTogglePublish}
+              >
+                {post.publishedAt ? 'Unpublish' : 'Publish'}
+              </Button>
+            </Flex>
           )}
         </Flex>
 

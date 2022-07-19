@@ -2,14 +2,14 @@
   "name": "alex-test-blog",
   "private": true,
   "version": "1.0.0",
-  "description": "",
-  "scripts": {
-    "preinstall": "npx only-allow pnpm",
-    "seed-db": "docker compose exec -u postgres postgres sh -c 'cd /dump && sh seed.sh'"
+  "description": "This is a demo project developed as a part of job search",
+  "packageManager": "pnpm@7.5.2",
+  "scripts": {},
+  "author": {
+    "name": "Alexey Maslennikov",
+    "url": "https://maslennikov.texkultura.com"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "license": "UNLICENSED",
   "devDependencies": {
     "prettier": "^2.7.1",
     "typescript": "^4.7.4"
